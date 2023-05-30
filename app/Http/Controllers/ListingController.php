@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Image;
 use App\Models\Listing;
+use Illuminate\Support\Facades\File;
 
 class ListingController extends Controller
 {
@@ -23,8 +24,6 @@ class ListingController extends Controller
 
     // Show
     public function show($id) {
-        // $listing = Listing::findOrFail($id);
-        // return view('listings.show', ['listing' => $listing]);
         $listing = Listing::find($id);
         if(!$listing) abort(404);
         $images = $listing->images;
@@ -52,6 +51,7 @@ class ListingController extends Controller
             'exterior'=>'required',
             'price'=>'required'
         ]);
+
         $new_listing = Listing::create($data);
         if($req->has('images')){
             foreach($req->file('images')as $image){
@@ -68,10 +68,16 @@ class ListingController extends Controller
     }
 
     // destroy
-    public function destroy($id) {
+    public function destroy(Request $req, $id) {
         $listing = Listing::findOrFail($id);
+        $images=Image::where("listing_id",$listing->id)->get();
+        foreach($images as $image){
+            if (File::exists("listing_images/".$image->image)) {
+                File::delete("listing_images/".$image->image);
+            }
+        }
+        Image::where("listing_id",$listing->id)->delete();
         $listing->delete();
-
         return redirect('/listings');
     }
 
@@ -81,12 +87,46 @@ class ListingController extends Controller
         return view('listings.edit', ['listing' => $listing]);
     }
 
-    // update
-    public function update($id) {
+    public function update(Request $req, $id) {
         $listing = Listing::findOrFail($id);
         $listing->stock = request('stock');
+        $listing->make = request('make');
+        $listing->model = request('model');
+        $listing->manufacture = request('manufacture');
+        $listing->mileage = request('mileage');
+        $listing->transmission = request('transmission');
+        $listing->fuel = request('fuel');
+        $listing->body = request('body');
+        $listing->drive = request('drive');
+        $listing->exterior = request('exterior');
+        $listing->price = request('price');
+
         $listing->update();
+
+        if($req->hasFile("images")){
+            $images=Image::where("listing_id",$listing->id)->get();
+            foreach($images as $image){
+                if (File::exists("listing_images/".$image->image)) {
+                    File::delete("listing_images/".$image->image);
+                }
+            }
+            Image::where("listing_id",$listing->id)->delete();
+            // update
+            $images=$req->file("images");
+            foreach($images as $image){
+                $imageName = $req->make.'-image-'.time().rand(1,1000).'.'.$image->extension();
+                $request["listing_id"]=$id;
+                $request["image"]=$imageName;
+                $image->move(public_path('listing_images'),$imageName);
+                Image::create([
+                    'listing_id'=>$listing->id,
+                    'image'=>$imageName
+                ]);
+
+            }
+        }
 
         return back()->with('success', 'Added');
     }
+
 }

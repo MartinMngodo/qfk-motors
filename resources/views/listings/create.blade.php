@@ -36,7 +36,7 @@
                             <div>
                                 <label for="stock" class="form-label form-text">Stock Availability</label>
                                 <select class="form-select" id="stock" name="stock" required>
-                                    <option selected>Select Availability</option>
+                                    <option disabled>Select Availability</option>
                                     <option value="in-stock">In Stock</option>
                                     <option value="sold">Sold</option>
                                     <option value="shipping">Shipping</option>
@@ -46,7 +46,7 @@
                             <div>
                                 <label for="make" class="form-label form-text">Choose Car Make</label>
                                 <select class="form-select" id="make" name="make" required>
-                                    <option selected>Select Car Make</option>
+                                    <option disabled>Select Car Make</option>
                                     <option value="toyota">Toyota</option>
                                     <option value="subaru">Subaru</option>
                                     <option value="mercedes-benz">Mercedes Benz</option>
@@ -82,7 +82,7 @@
                             <div>
                                 <label for="transmission" class="form-label form-text">Transmission</label>
                                 <select class="form-select" id="transmission" name="transmission" required>
-                                    <option selected>Select Transmission</option>
+                                    <option disabled>Select Transmission</option>
                                     <option value="automatic">Automatic</option>
                                     <option value="manual">Manual</option>
                                     <option value="dual">Dual</option>
@@ -92,7 +92,7 @@
                             <div>
                                 <label for="fuel" class="form-label form-text">Fuel</label>
                                 <select class="form-select" id="fuel" name="fuel" required>
-                                    <option selected>Select Fuel</option>
+                                    <option disabled>Select Fuel</option>
                                     <option value="petrol">Petrol</option>
                                     <option value="diesel">Diesel</option>
                                 </select>
@@ -101,7 +101,7 @@
                             <div>
                                 <label for="body" class="form-label form-text">Body</label>
                                 <select class="form-select" id="body" name="body" required>
-                                    <option selected>Select Car Body</option>
+                                    <option disabled>Select Car Body</option>
                                     <option value="sedan">Sedan</option>
                                     <option value="suv">SUV</option>
                                     <option value="station-wagon">Station Wagon</option>
@@ -120,7 +120,7 @@
                             <div>
                                 <label for="drive" class="form-label form-text">Drive</label>
                                 <select class="form-select" id="drive" name="drive" required>
-                                    <option selected>Select Car Drive</option>
+                                    <option disabled>Select Car Drive</option>
                                     <option value="2wd">2WD</option>
                                     <option value="awd">AWD</option>
                                     <option value="4wd">4WD</option>
@@ -130,7 +130,7 @@
                             <div>
                                 <label for="exterior" class="form-label form-text">Exterior</label>
                                 <select class="form-select" id="exterior" name="exterior" required>
-                                    <option selected>Select Exterior</option>
+                                    <option disabled>Select Exterior</option>
                                     <option value="white">White</option>
                                     <option value="black">Black</option>
                                     <option value="gray">Gray</option>
